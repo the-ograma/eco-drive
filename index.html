@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ <style> 
+ body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+header {
+  background-color: #00796b;
+  color: #fff;
+  padding: 15px 0;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.header-logo {
+  margin-bottom: 10px;
+}
+
+.header-logo img {
+  max-width: 150px; /* Adjust as needed */
+  height: auto;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.button-container span {
+  cursor: pointer;
+  padding: 12px 20px;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  background-color: #004d40;
+  transition: background-color 0.3s ease;
+  color: #fff;
+  font-weight: bold;
+}
+
+.button-container span:hover {
+  background-color: #003d33;
+}
+
+.container {
+  text-align: center;
+  margin: 20px auto;
+  max-width: 1200px;
+}
+
+.title {
+  font-size: 2.5em;
+  color: #00796b;
+  margin-bottom: 10px;
+}
+
+.visible {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
+
+#about-message {
+  border-radius: 10px;
+  font-size: 16px;
+  width: 100%;
+  max-width: 800px;
+  background-color: #ffffff;
+  margin: 30px auto;
+  padding: 20px;
+  color: #555;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+}
+
+.rent-form-container, .offer-form-container {
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 800px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #00796b;
+}
+
+.form-group input, .form-group select {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+button {
+  background-color: #00796b;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #004d40;
+}
+
+#chat-box {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#chat-box-header {
+  background-color: #00796b;
+  color: #fff;
+  padding: 12px;
+  border-radius: 8px 8px 0 0;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#chat-box-messages {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #ddd;
+}
+
+#chat-box-input {
+  width: calc(100% - 80px);
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+#chat-box-send {
+  width: 70px;
+  padding: 10px;
+  border: none;
+  background-color: #00796b;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+#chat-box-send:hover {
+  background-color: #004d40;
+}
+
+footer {
+  background-color: #00796b;
+  color: #fff;
+  padding: 15px;
+  text-align: center;
+  font-size: 14px;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.spaced-text {
+  margin-bottom: 20px;
+}
+
+.horizontal-line {
+  height: 2px;
+  background-color: #00796b;
+  margin: 20px 0;
+}
+
+.no-spacing {
+  margin: 0;
+}
+
+</style>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8Y2TUgJy2rYIZxJiqlJqUuy3ysIJhn_0&libraries=places"></script>
+</head>
+<body>
+  <header>
+    <div class="header-logo">
+      <img src="" >
+    </div>
+    <div class="button-container">
+      <span id="Home">Home Page</span>
+      <span id="Rent">Rent A Car</span>
+      <span id="Offer">Offer a Car for Rent</span>
+      <span id="About">About Us</span>
+      <span id="Chat">Chat with us</span>
+    </div>
+  </header>
+
+  <div class="container">
+    <h1 class="title">EcoDrive Rentals</h1>
+  </div>
+
+  <div id="HomeSection" class="visible">
+    <div id="about-message">
+      <h2>About Us</h2>
+      <p>Welcome to ElectraRide Rentals, the ultimate destination for eco-friendly travel. We provide a variety of electric cars to cater to all your rental needs, from short trips to long journeys. Our mission is to offer a seamless rental experience while promoting sustainability. Join us in driving the future, one electric car at a time.</p>
+    </div>
+  </div>
+
+  <div id="RentSection" class="hidden">
+    <div class="rent-form-container">
+      <form id="rentForm" class="rent-form">
+        <h2>Rent a Car</h2>
+        <div class="form-group">
+          <label for="rentCarType">Car Type</label>
+          <select id="rentCarType" name="carType" required>
+            <option value="Tesla Model S">Tesla Model S</option>
+            <option value="Tesla Model 3">Tesla Model 3</option>
+            
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="rentPickUpLocation">Pick Up Location</label>
+          <input type="text" id="rentPickUpLocation" name="pickUpLocation" required>
+        </div>
+        <div class="form-group">
+          <label for="rentDropOffLocation">Drop Off Location</label>
+          <input type="text" id="rentDropOffLocation" name="dropOffLocation" required>
+        </div>
+        <div class="form-group">
+          <label for="rentalPeriod">Rental Period (days)</label>
+          <input type="number" id="rentalPeriod" name="rentalPeriod" min="1" required>
+        </div>
+        <div class="form-group">
+          <label for="renterName">Your Name</label>
+          <input type="text" id="renterName" name="renterName" required>
+        </div>
+        <div class="form-group">
+          <label for="renterEmail">Your Email</label>
+          <input type="email" id="renterEmail" name="renterEmail" required>
+        </div>
+        <button type="button" id="rentSubmit">Rent Now</button>
+      </form>
+    </div>
+    <div id="rentalData">
+      <h2>Available Cars</h2>
+      <!-- Rental data will be appended here -->
+    </div>
+  </div>
+
+  <div id="OfferSection" class="hidden">
+    <div class="offer-form-container">
+      <form id="offerForm" class="offer-form">
+        <h2>Offer a Car for Rent</h2>
+        <div class="form-group">
+          <label for="offerCarType">Car Type</label>
+          <select id="offerCarType" name="carType" required>
+            <option value="Tesla Model S">Tesla Model S</option>
+            <option value="Tesla Model 3">Tesla Model 3</option>
+            <!-- Add other options as needed -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="offerPeriod">Rental Period (days)</label>
+          <input type="number" id="offerPeriod" name="offerPeriod" min="1" required>
+        </div>
+        <div class="form-group">
+          <label for="pickUpLocation">Pick Up Location</label>
+          <input type="text" id="pickUpLocation" name="pickUpLocation" required>
+        </div>
+        <div class="form-group">
+          <label for="dropOffLocation">Drop Off Location</label>
+          <input type="text" id="dropOffLocation" name="dropOffLocation" required>
+        </div>
+        <div class="form-group">
+          <label for="ownerName">Your Name</label>
+          <input type="text" id="ownerName" name="ownerName" required>
+        </div>
+        <div class="form-group">
+          <label for="ownerEmail">Your Email</label>
+          <input type="email" id="ownerEmail" name="ownerEmail" required>
+        </div>
+        <button type="button" id="offerSubmit">Offer Now</button>
+      </form>
+    </div>
+    <div id="offeredCarsData">
+      <h2>Recently Offered Cars</h2>
+      <!-- Offered car data will be appended here -->
+    </div>
+  </div>
+
+  <div id="ChatSection" class="hidden">
+    <div id="chat-box">
+      <div id="chat-box-header">Chat with us</div>
+      <div id="chat-box-messages"></div>
+      <input type="text" id="chat-box-input" placeholder="Type a message...">
+      <button id="chat-box-send">Send</button>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2024 ElectraRide Rentals. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Store offered cars in a global list
+    const offeredCars = [];
+  
+    // Toggle visibility between sections
+    document.getElementById('Home').addEventListener('click', () => {
+      toggleVisibility('HomeSection');
+    });
+  
+    document.getElementById('Rent').addEventListener('click', () => {
+      toggleVisibility('RentSection');
+    });
+  
+    document.getElementById('Offer').addEventListener('click', () => {
+      toggleVisibility('OfferSection');
+    });
+  
+    document.getElementById('About').addEventListener('click', () => {
+      toggleVisibility('HomeSection');
+    });
+  
+    document.getElementById('Chat').addEventListener('click', () => {
+      toggleVisibility('ChatSection');
+    });
+  
+    function toggleVisibility(sectionId) {
+      const sections = ['HomeSection', 'RentSection', 'OfferSection', 'ChatSection'];
+      sections.forEach(id => {
+        document.getElementById(id).classList.toggle('hidden', id !== sectionId);
+        document.getElementById(id).classList.toggle('visible', id === sectionId);
+      });
+    }
+  
+    // Handle form submissions for offering a car
+    document.getElementById('offerSubmit').addEventListener('click', () => {
+      const form = document.getElementById('offerForm');
+      const formData = new FormData(form);
+      const carType = formData.get('carType');
+      const offerPeriod = formData.get('offerPeriod');
+      const pickUpLocation = formData.get('pickUpLocation');
+      const dropOffLocation = formData.get('dropOffLocation');
+      const ownerName = formData.get('ownerName');
+      const ownerEmail = formData.get('ownerEmail');
+  
+      // Store offered car data in the global list
+      offeredCars.push({
+        carType,
+        offerPeriod,
+        pickUpLocation,
+        dropOffLocation,
+        ownerName,
+        ownerEmail
+      });
+ 
+    });
+  
+    // Handle form submissions for renting a car
+    document.getElementById('rentSubmit').addEventListener('click', () => {
+      const form = document.getElementById('rentForm');
+      const formData = new FormData(form);
+      const carType = formData.get('carType');
+      const pickUpLocation = formData.get('pickUpLocation');
+      const dropOffLocation = formData.get('dropOffLocation');
+      const rentalPeriod = formData.get('rentalPeriod');
+      const renterName = formData.get('renterName');
+      const renterEmail = formData.get('renterEmail');
+  
+      // Check if any offered cars match the selected type
+      const availableCars = offeredCars.filter(car => car.carType === carType);
+  
+      // Display available cars below rental data
+      availableCars.forEach(car => {
+        const availableCarData = `
+          <div class="available-car-item">
+            <h3>${car.carType}</h3>
+            <p>Offer Period: ${car.offerPeriod} days</p>
+            <p>Pick Up Location: ${car.pickUpLocation}</p>
+            <p>Drop Off Location: ${car.dropOffLocation}</p>
+            <p>Owner: ${car.ownerName}</p>
+            <p>Email: ${car.ownerEmail}</p>
+          </div>
+        `;
+        document.getElementById('rentalData').insertAdjacentHTML('beforeend', availableCarData);
+      });
+  
+      form.reset();
+    });
+  
+    // Chat functionality
+    document.getElementById('chat-box-send').addEventListener('click', () => {
+      const input = document.getElementById('chat-box-input');
+      const message = input.value.trim();
+      if (message) {
+        const messageElement = document.createElement('div');
+        messageElement.textContent = message;
+        document.getElementById('chat-box-messages').appendChild(messageElement);
+        input.value = '';
+        input.focus();
+        // Scroll to the bottom of the chat box
+        document.getElementById('chat-box-messages').scrollTop = document.getElementById('chat-box-messages').scrollHeight;
+      }
+    });
+  
+    document.getElementById('chat-box-input').addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        document.getElementById('chat-box-send').click();
+      }
+    });
+  </script>
+  
